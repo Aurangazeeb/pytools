@@ -47,12 +47,12 @@ if not os.path.exists(organized_csv_filename):
 argparser = argparse.ArgumentParser()
 #adding optional argument
 argparser.add_argument('-s', '--subject', required=True, help = 'Name of subject that user is currently engaged in')
-argparser.add_argument('duration_in_mins', type = float)
+argparser.add_argument('duration_in_hours', type = float)
 
 args = argparser.parse_args()
 
 subject_name = args.subject
-duration_set = args.duration_in_mins
+duration_set = args.duration_in_hours
 #date object
 start_time = dt.datetime.now()
 
@@ -85,8 +85,8 @@ while True:
 		#converting duration into minutes
 		duration = round(duration.seconds/60)
 		met_milestone = duration >= duration_set
-		percent_met = round((duration/duration_set) * 100, 1)
-		rowvals.extend([end_time, duration, duration_set, met_milestone, percent_met])
+		percent_met = round((duration/duration_set * 60) * 100, 1)
+		rowvals.extend([end_time, duration, duration_set * 60, met_milestone, percent_met])
 		csv_rowdict = dict(zip(csv_fieldnames, rowvals))
 		with open(organized_csv_filename, 'a+') as csvfile:
 			csv_writer = csv.DictWriter(csvfile, fieldnames = csv_fieldnames)
