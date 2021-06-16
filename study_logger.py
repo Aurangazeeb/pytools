@@ -85,7 +85,7 @@ while True:
 		#converting duration into minutes
 		duration = round(duration.seconds/60)
 		met_milestone = duration >= duration_set
-		percent_met = round((duration/duration_set * 60) * 100, 1)
+		percent_met = round((duration/(duration_set * 60)) * 100, 1)
 		rowvals.extend([end_time, duration, duration_set * 60, met_milestone, percent_met])
 		csv_rowdict = dict(zip(csv_fieldnames, rowvals))
 		with open(organized_csv_filename, 'a+') as csvfile:
